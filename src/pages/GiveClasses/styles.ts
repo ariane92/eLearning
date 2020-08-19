@@ -33,6 +33,7 @@ export const OkButton = styled(RectButton)`
   align-items: center;
   justify-content: center;
   border-radius: 8px;
+  margin-vertical: 40px;
 `;
 
 export const OkButtonText = styled.Text`
