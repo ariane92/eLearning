@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import {TouchableOpacity} from 'react-native';
+
+import {RectButton} from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
@@ -29,7 +30,7 @@ export const ButtonsContainer = styled.View`
   justify-content: space-between;
 `;
 
-export const ButtonStudy = styled(TouchableOpacity)`
+export const ButtonStudy = styled(RectButton)`
   height: 150px;
   width: 48%;
   background-color: #9871f5;
@@ -38,7 +39,7 @@ export const ButtonStudy = styled(TouchableOpacity)`
   justify-content: space-between;
 `;
 
-export const ButtonClass = styled(TouchableOpacity)`
+export const ButtonClass = styled(RectButton)`
   height: 150px;
   width: 48%;
   background-color: #04de61;
