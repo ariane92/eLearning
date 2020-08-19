@@ -1,11 +1,13 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StatusBar} from 'react-native';
+import Landing from './pages/Landing';
 
 const App = () => {
   return (
-    <View>
-      <Text>Olá</Text>
-    </View>
+    <>
+      <StatusBar translucent backgroundColor="transparent" />
+      <Landing />
+    </>
   );
 };
 
