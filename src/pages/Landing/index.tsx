@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {View, Image} from 'react-native';
-
+import {useNavigation} from '@react-navigation/native';
 import {
   Container,
   ImageLanding,
@@ -18,6 +18,11 @@ import studyIcon from '../../assets/images/icons/study.png';
 import giveClassesIcon from '../../assets/images/icons/give-classes.png';
 import heartIcon from '../../assets/images/icons/heart.png';
 const Landing = () => {
+  const navigation = useNavigation();
+
+  const handleNavigationToGiveClassPage = useCallback(() => {
+    navigation.navigate('GiveClasses');
+  }, []);
   return (
     <Container>
       <ImageLanding source={landingImg} />
@@ -30,7 +35,7 @@ const Landing = () => {
           <Image source={studyIcon} />
           <TextButtonStudy>Estudar</TextButtonStudy>
         </ButtonStudy>
-        <ButtonClass>
+        <ButtonClass onPress={handleNavigationToGiveClassPage}>
           <Image source={giveClassesIcon} />
           <TextButtonStudy>Dar aulas</TextButtonStudy>
         </ButtonClass>
