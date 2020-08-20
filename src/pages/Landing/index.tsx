@@ -22,7 +22,12 @@ const Landing = () => {
 
   const handleNavigationToGiveClassPage = useCallback(() => {
     navigation.navigate('GiveClasses');
-  }, []);
+  }, [navigation]);
+
+  const handleNavigateToStudy = useCallback(() => {
+    navigation.navigate('Study');
+  }, [navigation]);
+
   return (
     <Container>
       <ImageLanding source={landingImg} />
@@ -31,7 +36,7 @@ const Landing = () => {
         <TextTitleBold>O que deseja fazer?</TextTitleBold>
       </TextTitle>
       <ButtonsContainer>
-        <ButtonStudy>
+        <ButtonStudy onPress={handleNavigateToStudy}>
           <Image source={studyIcon} />
           <TextButtonStudy>Estudar</TextButtonStudy>
         </ButtonStudy>
