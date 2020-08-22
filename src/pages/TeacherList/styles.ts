@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {ScrollView, TextInput} from 'react-native';
+import {BorderlessButton, RectButton} from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
@@ -38,4 +39,21 @@ export const InputGroup = styled.View`
 
 export const InputBlock = styled.View`
   width: 48%;
+`;
+
+export const FilterButton = styled(BorderlessButton)``;
+
+export const SubmitButton = styled(RectButton)`
+  background-color: #04d361;
+  height: 56px;
+  border-radius: 8px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SubmitButtonText = styled.Text`
+  color: #fff;
+  font-size: 16px;
+  margin-left: 16px;
 `;
