@@ -16,6 +16,7 @@ import PageHeader from '../../components/PageHeader';
 import TeacherItem, {Teacher} from '../../components/TeacherItem';
 import {Text, AsyncStorage} from 'react-native';
 import api from '../../services/api';
+import {useFocusEffect} from '@react-navigation/native';
 
 const TeacherList = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
@@ -42,6 +43,10 @@ const TeacherList = () => {
     });
   }, []);
 
+  useFocusEffect(() => {
+    loadFavorites();
+  });
+
   const handleToggleFilterVisible = useCallback(() => {
     setIsFilterVisible(!isFilterVisible);
   }, [isFilterVisible]);
@@ -54,7 +59,7 @@ const TeacherList = () => {
 
     setIsFilterVisible(false);
     setTeachers(response.data);
-  }, [subject, week_day, time]);
+  }, [subject, week_day, time, loadFavorites]);
   return (
     <Container>
       <PageHeader
