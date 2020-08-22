@@ -77,8 +77,14 @@ export const FavoriteButton = styled(RectButton)`
   margin-right: 8px;
 `;
 
-export const Favorited = styled(RectButton)`
+export const UnFavorited = styled(RectButton)`
   background-color: #e33d3e;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
 `;
 
 export const ContactButton = styled(RectButton)`

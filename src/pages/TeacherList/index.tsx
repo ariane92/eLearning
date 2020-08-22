@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 
 import {
   Container,
@@ -13,15 +13,48 @@ import {
   SubmitButtonText,
 } from './styles';
 import PageHeader from '../../components/PageHeader';
-import TeacherItem from '../../components/TeacherItem';
-import {Text} from 'react-native';
+import TeacherItem, {Teacher} from '../../components/TeacherItem';
+import {Text, AsyncStorage} from 'react-native';
+import api from '../../services/api';
 
 const TeacherList = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
 
+  const [week_day, setWeekDay] = useState('');
+  const [subject, setSubject] = useState('');
+  const [time, setTime] = useState('');
+
+  const [teachers, setTeachers] = useState([]);
+
+  const [favorites, setFavorite] = useState<number[]>([]);
+
+  const loadFavorites = useCallback(() => {
+    AsyncStorage.getItem('favorites').then((response) => {
+      if (response) {
+        const favoritedTeachers = JSON.parse(response);
+        const favoritedTeachersIds = favoritedTeachers.map(
+          (teacher: Teacher) => {
+            return teacher.id;
+          },
+        );
+        setFavorite(favoritedTeachersIds);
+      }
+    });
+  }, []);
+
   const handleToggleFilterVisible = useCallback(() => {
     setIsFilterVisible(!isFilterVisible);
   }, [isFilterVisible]);
+
+  const handleFilterSubmit = useCallback(async () => {
+    loadFavorites();
+    const response = await api.get('classes', {
+      params: {subject, week_day, time},
+    });
+
+    setIsFilterVisible(false);
+    setTeachers(response.data);
+  }, [subject, week_day, time]);
   return (
     <Container>
       <PageHeader
@@ -34,30 +67,44 @@ const TeacherList = () => {
         {isFilterVisible && (
           <SearchForm>
             <Label>Matéria</Label>
-            <Input placeholder="Qual a matéria?" />
+            <Input
+              placeholder="Qual a matéria?"
+              value={subject}
+              onChangeText={(text) => setSubject(text)}
+            />
             <InputGroup>
               <InputBlock>
                 <Label>Dia da semana</Label>
-                <Input placeholder="Qual o dia?" />
+                <Input
+                  placeholder="Qual o dia?"
+                  value={week_day}
+                  onChangeText={(text) => setWeekDay(text)}
+                />
               </InputBlock>
               <InputBlock>
                 <Label>Horário</Label>
-                <Input placeholder="Qual horário" />
+                <Input
+                  placeholder="Qual horário"
+                  value={time}
+                  onChangeText={(text) => setTime(text)}
+                />
               </InputBlock>
             </InputGroup>
 
-            <SubmitButton>
+            <SubmitButton onPress={handleFilterSubmit}>
               <SubmitButtonText>Filtrar</SubmitButtonText>
             </SubmitButton>
           </SearchForm>
         )}
       </PageHeader>
       <Scroll>
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
+        {teachers.map((teacher: Teacher) => (
+          <TeacherItem
+            key={teacher.id}
+            teacher={teacher}
+            favorited={favorites.includes(teacher.id)}
+          />
+        ))}
       </Scroll>
     </Container>
   );
