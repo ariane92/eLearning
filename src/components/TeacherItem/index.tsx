@@ -39,7 +39,7 @@ const TeacherItem = () => {
         </Price>
         <ButtonsContainer>
           <FavoriteButton>
-            <Image source={heartOutlineIcon} />
+            <Image source={unFavoriteIcon} />
           </FavoriteButton>
           <ContactButton>
             <Image source={whatsAppIcon} />
